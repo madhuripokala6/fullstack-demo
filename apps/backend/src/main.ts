@@ -10,7 +10,7 @@ async function bootstrap() {
       callback(null, true);
     },
     methods: 'GET,HEAD,POST,PUT,DELETE,PATCH',
-    credentials: true,
+    //credentials: true,
   });
   
   await app.listen(process.env.PORT ?? 8080);

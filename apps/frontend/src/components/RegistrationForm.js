@@ -97,6 +97,7 @@ const RegistrationForm = () => {
           </label>
           <input
             name="phoneNumber"
+            type="tel"
             placeholder="Enter your phone number"
             value={form.phoneNumber}
             onChange={handleChange}
