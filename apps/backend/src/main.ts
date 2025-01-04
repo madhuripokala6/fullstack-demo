@@ -4,30 +4,19 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
+  // Configure CORS
   app.enableCors({
-    origin: (origin, callback) => {
-      // Allow Codespace URLs and localhost
-      if (!origin || 
-          origin.match(/.*\.app\.github\.dev$/) || 
-          origin.includes('localhost')) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true
+    origin: '*',  // For demo purposes, allow all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: false
   });
 
-  // main.ts
-  app.use((error, req, res, next) => {
-    console.error('Error:', error);
-    console.log('Request URL:', req.url);
-    console.log('Origin:', req.headers.origin);
-    next(error);
-  });
-
-  // Important: Listen on all interfaces in Codespaces
+  // Listen on all interfaces
   await app.listen(process.env.PORT || 8080, '0.0.0.0');
+  
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { getApiBaseUrl } from './utils';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from './utils';
 
 const RegistrationForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    teamName: '',
-    idea: '',
+    name: "",
+    email: "",
+    phoneNumber: "",
+    teamName: "",
+    idea: "",
   });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (id) {
-      axios.get(`${getApiBaseUrl()}/api/registrations/${id}`)
+      api
+        .get(`/api/registrations/${id}`)
         .then((res) => setForm(res.data))
         .catch((error) => {
-          console.error('Error:', error);
-          toast.error('Error fetching registration details');
+          console.error("Error:", error);
+          toast.error("Error fetching registration details");
         });
     }
   }, [id]);
@@ -30,16 +30,18 @@ const RegistrationForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    setErrors({ ...errors, [name]: '' }); // Clear error on change
+    setErrors({ ...errors, [name]: "" }); // Clear error on change
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.name.trim()) newErrors.name = 'Name is required';
-    if (!form.email.trim()) newErrors.email = 'Email is required';
-    if (!form.phoneNumber.trim()) newErrors.phoneNumber = 'Phone Number is required';
-    if (!form.idea.trim()) newErrors.idea = 'Idea is required';
-    else if (form.idea.length < 10) newErrors.idea = 'Idea must be at least 10 characters long';
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.email.trim()) newErrors.email = "Email is required";
+    if (!form.phoneNumber.trim())
+      newErrors.phoneNumber = "Phone Number is required";
+    if (!form.idea.trim()) newErrors.idea = "Idea is required";
+    else if (form.idea.length < 10)
+      newErrors.idea = "Idea must be at least 10 characters long";
     return newErrors;
   };
 
@@ -48,25 +50,28 @@ const RegistrationForm = () => {
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      toast.error('Please fix the errors before submitting');
+      toast.error("Please fix the errors before submitting");
       return;
     }
 
     const apiCall = id
-      ? axios.put(`${getApiBaseUrl()}/api/registrations/${id}`, form)
-      : axios.post(`${getApiBaseUrl()}/api/registrations`, form);
+      ? api.put(`/api/registrations/${id}`, form)
+      : api.post("/api/registrations", form);
 
     apiCall
       .then(() => {
-        toast.success('Registration saved successfully');
-        navigate('/');
+        toast.success("Registration saved successfully");
+        navigate("/");
       })
-      .catch(() => toast.error('Error saving registration'));
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error saving registration");
+      });
   };
 
   return (
     <div className="form-container">
-      <h2>{id ? 'Edit Registration' : 'Add New Registration'}</h2>
+      <h2>{id ? "Edit Registration" : "Add New Registration"}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>
@@ -106,7 +111,9 @@ const RegistrationForm = () => {
             value={form.phoneNumber}
             onChange={handleChange}
           />
-          {errors.phoneNumber && <p className="error-text">{errors.phoneNumber}</p>}
+          {errors.phoneNumber && (
+            <p className="error-text">{errors.phoneNumber}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -133,7 +140,7 @@ const RegistrationForm = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          {id ? 'Update Registration' : 'Submit Registration'}
+          {id ? "Update Registration" : "Submit Registration"}
         </button>
       </form>
     </div>

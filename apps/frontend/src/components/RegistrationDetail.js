@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { getApiBaseUrl } from './utils';
+import api from './utils';
 
 const RegistrationDetail = () => {
   const { id } = useParams();
   const [registration, setRegistration] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${getApiBaseUrl()}/api/registrations/${id}`)
-      .then((res) => setRegistration(res.data))
-      .catch(() => toast.error('Error fetching registration details'));
+    if (id) {
+      api.get(`/api/registrations/${id}`)
+        .then((res) => setRegistration(res.data))
+        .catch((error) => {
+          console.error('Error details:', error);
+          toast.error('Error fetching registration details');
+        });
+    }
   }, [id]);
 
   return (

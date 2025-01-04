@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { getApiBaseUrl } from './utils';
+import api from './utils';
 
 const RegistrationList = () => {
   const [registrations, setRegistrations] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${getApiBaseUrl()}/api/registrations`)
+    api.get('/api/registrations')
       .then((res) => setRegistrations(res.data))
-      .catch(() => toast.error('Error fetching registrations'));
+      .catch((error) => {
+        console.error('Error:', error);
+        toast.error('Error fetching registrations');
+      });
   }, []);
-
+  
+  // Delete registration
   const handleDelete = (id) => {
-    axios
-      .delete(`${getApiBaseUrl()}/api/registrations/${id}`)
+    api.delete(`/api/registrations/${id}`)
       .then(() => {
         setRegistrations((prev) => prev.filter((reg) => reg.id !== id));
         toast.success('Registration deleted successfully');
       })
-      .catch(() => toast.error('Error deleting registration'));
+      .catch((error) => {
+        console.error('Error:', error);
+        toast.error('Error deleting registration');
+      });
   };
 
   return (
