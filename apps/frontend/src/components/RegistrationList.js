@@ -8,14 +8,14 @@ const RegistrationList = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/registrations')
+      .get(`${getApiBaseUrl()}/api/registrations`)
       .then((res) => setRegistrations(res.data))
       .catch(() => toast.error('Error fetching registrations'));
   }, []);
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8080/api/registrations/${id}`)
+      .delete(`${getApiBaseUrl()}/api/registrations/${id}`)
       .then(() => {
         setRegistrations((prev) => prev.filter((reg) => reg.id !== id));
         toast.success('Registration deleted successfully');

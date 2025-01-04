@@ -17,9 +17,12 @@ const RegistrationForm = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:8080/api/registrations/${id}`)
+      axios.get(`${getApiBaseUrl()}/api/registrations/${id}`)
         .then((res) => setForm(res.data))
-        .catch(() => toast.error('Error fetching registration details'));
+        .catch((error) => {
+          console.error('Error:', error);
+          toast.error('Error fetching registration details');
+        });
     }
   }, [id]);
 
@@ -49,8 +52,8 @@ const RegistrationForm = () => {
     }
 
     const apiCall = id
-      ? axios.put(`http://localhost:8080/api/registrations/${id}`, form)
-      : axios.post('http://localhost:8080/api/registrations', form);
+      ? axios.put(`${getApiBaseUrl()}/api/registrations/${id}`, form)
+      : axios.post(`${getApiBaseUrl()}/api/registrations`, form);
 
     apiCall
       .then(() => {

@@ -9,7 +9,7 @@ const RegistrationDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/registrations/${id}`)
+      .get(`${getApiBaseUrl()}/api/registrations/${id}`)
       .then((res) => setRegistration(res.data))
       .catch(() => toast.error('Error fetching registration details'));
   }, [id]);
