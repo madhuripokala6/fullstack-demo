@@ -1,0 +1,17 @@
+{
+    "name": "hackathon-registration",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "apps/frontend",
+        "apps/backend"
+    ],
+    "scripts": {
+        "start:frontend": "npm start --workspace=apps/frontend",
+        "start:backend": "npm start --workspace=apps/backend",
+        "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}
