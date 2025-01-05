@@ -26,9 +26,6 @@ function App() {
         <Route path="/register/:id" element={<RegistrationForm />} />
         <Route path="/detail/:id" element={<RegistrationDetail />} />
       </Routes>
-            {/* <footer>
-        <p>&copy; 2024 Hack It Till You Crack It! All rights reserved. Stay cool 😎</p>
-      </footer> */}
     </Router>
   );
 }
