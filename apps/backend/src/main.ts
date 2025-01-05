@@ -14,29 +14,29 @@ async function bootstrap() {
   //   }
   //   next();
   // });
-  app.use((req, res, next) => {
-    if (origin && origin.endsWith('.app.github.dev')) {
-      res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-      res.setHeader('Access-Control-Allow-Credentials', 'true');
-      if (req.method === 'OPTIONS') {
-        return res.sendStatus(204);
-      }
-    }
-    next();
-  });
-  
-  
-  // Configure CORS
-  // app.enableCors({
-  //   origin: '*',  // For demo purposes, allow all origins
-  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  //   allowedHeaders: ['Content-Type', 'Authorization'],
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 204,
-  //   credentials: false
+  // app.use((req, res, next) => {
+  //   if (origin && origin.endsWith('.app.github.dev')) {
+  //     res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  //     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  //     res.setHeader('Access-Control-Allow-Credentials', 'true');
+  //     if (req.method === 'OPTIONS') {
+  //       return res.sendStatus(204);
+  //     }
+  //   }
+  //   next();
   // });
+  
+  
+  //Configure CORS
+  app.enableCors({
+    origin: '*',  // For demo purposes, allow all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    //allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: false
+  });
 
   // Listen on all interfaces
   await app.listen(process.env.PORT || 8080, '0.0.0.0');

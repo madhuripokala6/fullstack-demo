@@ -24,7 +24,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   maxRedirects: 5,
-  withCredentials: true
+  withCredentials: false
 });
 
 export default api;
