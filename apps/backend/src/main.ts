@@ -8,8 +8,6 @@ async function bootstrap() {
   
   // Get Codespace info
   const codespaceName = process.env.CODESPACE_NAME;
-  console.log('CODESPACE_NAME:', codespaceName);
-  console.log('Current PORT:', process.env.PORT || 8080);
   
   const allowedOrigins = [
     'http://localhost:3000',
@@ -20,8 +18,6 @@ async function bootstrap() {
   if (codespaceName) {
     allowedOrigins.push(`https://${codespaceName}-3000.app.github.dev`);
   }
-  
-  console.log('Allowed origins:', allowedOrigins);
 
   app.enableCors({
     origin: allowedOrigins,
@@ -36,7 +32,6 @@ async function bootstrap() {
   
   const serverUrl = await app.getUrl();
   console.log(`Server running at: ${serverUrl}`);
-  console.log('CORS configured with origins:', allowedOrigins);
 }
 bootstrap().catch(error => {
   console.error('Failed to start application:', error);

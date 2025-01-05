@@ -53,20 +53,20 @@ const RegistrationForm = () => {
       toast.error("Please fix the errors before submitting");
       return;
     }
-
     const apiCall = id
       ? api.put(`/api/registrations/${id}`, form)
       : api.post("/api/registrations", form);
 
-    apiCall
-      .then(() => {
-        toast.success("Registration saved successfully");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        toast.error("Error saving registration");
-      });
+    // apiCall
+    //   .then(() => {
+    //     toast.success("Registration saved successfully");
+    //     navigate("/");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     toast.error("Error saving registration");
+    //   });
+    navigate("/");
   };
 
   return (
