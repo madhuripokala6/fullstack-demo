@@ -11,8 +11,10 @@ import axios from 'axios';
 
 const getBaseUrl = () => {
   const hostname = window.location.hostname;
+  console.log('hostname---->', hostname);
   if (hostname.includes('github.dev')) {
     const prefix = hostname.split('-3000')[0];
+    console.log(`https://${prefix}-8080.app.github.dev`)
     return `https://${prefix}-8080.app.github.dev`;
   }
   return 'http://localhost:8080';
