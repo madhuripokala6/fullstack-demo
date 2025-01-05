@@ -12,7 +12,7 @@ const RegistrationForm = () => {
     phoneNumber: "",
     teamName: "",
     idea: "",
-    schoolName: "",
+    skills: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -54,10 +54,9 @@ const RegistrationForm = () => {
       toast.error("Please fix the errors before submitting");
       return;
     }
-    const apiCall = id
-      ? api.put(`/api/registrations/${id}`, form)
-      : api.post("/api/registrations", form);
-
+    // const apiCall = id
+    //   ? api.put(`/api/registrations/${id}`, form)
+    //   : api.post("/api/registrations", form);
     // apiCall
     //   .then(() => {
     //     toast.success("Registration saved successfully");
@@ -128,11 +127,11 @@ const RegistrationForm = () => {
         </div>
 
         {/* <div className="form-group">
-          <label>School name</label>
+          <label>Skills</label>
           <input
-            name="schoolName"
-            placeholder="Enter your school name"
-            value={form.schoolName}
+            name="skills"
+            placeholder="Enter your skills"
+            value={form.skills}
             onChange={handleChange}
           />
         </div> */}

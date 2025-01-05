@@ -6,7 +6,7 @@ interface Registration {
   email: string;
   phoneNumber: string;
   teamName?: string;
-  schoolName?: string;
+  skills?: string;
   idea: string;
 }
 
