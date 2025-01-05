@@ -45,7 +45,7 @@ const RegistrationList = () => {
                 <h3>{reg.name}</h3>
                 <p><strong>Email:</strong> {reg.email}</p>
                 <p><strong>Team:</strong> {reg.teamName || 'N/A'}</p>
-                {reg.schoolName && <p><strong>School Name:</strong> {reg.schoolName}</p>}
+                {reg.skills && <p><strong> Skills:</strong> {reg.skills}</p>}
                 <p><strong>Idea:</strong> {reg.idea}</p>
                 <div className="card-actions">
                   <Link to={`/detail/${reg.id}`} className="details-button">View Details</Link>
