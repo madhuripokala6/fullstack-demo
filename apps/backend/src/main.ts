@@ -2,27 +2,42 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  console.log('Starting NestJS application...');
+  
   const app = await NestFactory.create(AppModule);
-
-  // Get the Codespace URL from the environment variable
+  
+  // Get Codespace info
   const codespaceName = process.env.CODESPACE_NAME;
-  console.log('codespaceurl', codespaceName);
-  const frontendUrl = codespaceName
-    ? `https://${codespaceName}-3000.app.github.dev`
-    : 'http://localhost:3000';
+  console.log('CODESPACE_NAME:', codespaceName);
+  console.log('Current PORT:', process.env.PORT || 8080);
+  
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:8080',
+    'https://*.app.github.dev'  // Wildcard for all Codespace URLs
+  ];
+  
+  if (codespaceName) {
+    allowedOrigins.push(`https://${codespaceName}-3000.app.github.dev`);
+  }
+  
+  console.log('Allowed origins:', allowedOrigins);
 
-  console.log(`Allowed CORS origin: ${frontendUrl}`);
-
-  // Enable CORS with the dynamic frontend URL
   app.enableCors({
-    origin: frontendUrl,
-    methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
+    origin: allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
     credentials: false
   });
 
-  await app.listen(8080);
+  // Listen on all interfaces
+  const port = process.env.PORT || 8080;
+  await app.listen(port, '0.0.0.0');
+  
+  const serverUrl = await app.getUrl();
+  console.log(`Server running at: ${serverUrl}`);
+  console.log('CORS configured with origins:', allowedOrigins);
 }
-bootstrap();
+bootstrap().catch(error => {
+  console.error('Failed to start application:', error);
+});
