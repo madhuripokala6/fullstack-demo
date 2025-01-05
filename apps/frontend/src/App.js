@@ -12,13 +12,13 @@ function App() {
       <ToastContainer />
       <header>
         <h1>Hack It Till You Crack It! 🎉</h1>
-        <nav>
+        {/* <nav>
           <ul>
             <li><a href="#about">What’s the Buzz?</a></li>
             <li><a href="#schedule">Hack-A-Plan</a></li>
             <li><a href="#contact">Hit Us Up</a></li>
           </ul>
-        </nav>
+        </nav> */}
       </header>
       <Routes>
         <Route path="/" element={<RegistrationList />} />
@@ -26,9 +26,6 @@ function App() {
         <Route path="/register/:id" element={<RegistrationForm />} />
         <Route path="/detail/:id" element={<RegistrationDetail />} />
       </Routes>
-            {/* <footer>
-        <p>&copy; 2024 Hack It Till You Crack It! All rights reserved. Stay cool 😎</p>
-      </footer> */}
     </Router>
   );
 }
