@@ -12,6 +12,7 @@ const RegistrationForm = () => {
     phoneNumber: "",
     teamName: "",
     idea: "",
+    schoolName: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -117,7 +118,7 @@ const RegistrationForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Team Name (optional)</label>
+          <label>Team Name</label>
           <input
             name="teamName"
             placeholder="Enter your team name"
@@ -125,6 +126,16 @@ const RegistrationForm = () => {
             onChange={handleChange}
           />
         </div>
+
+        {/* <div className="form-group">
+          <label>School name</label>
+          <input
+            name="schoolName"
+            placeholder="Enter your school name"
+            value={form.schoolName}
+            onChange={handleChange}
+          />
+        </div> */}
 
         <div className="form-group">
           <label>

@@ -6,6 +6,7 @@ interface Registration {
   email: string;
   phoneNumber: string;
   teamName?: string;
+  schoolName?: string;
   idea: string;
 }
 

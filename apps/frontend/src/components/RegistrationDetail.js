@@ -33,6 +33,10 @@ const RegistrationDetail = () => {
             <p>
               <strong>Team Name:</strong> {registration.teamName || 'N/A'}
             </p>
+            { registration.schoolName && <p>
+              <strong>School Name:</strong> {registration.schoolName || 'N/A'}
+              </p>
+            }
             <p>
               <strong>Idea:</strong> {registration.idea}
             </p>
